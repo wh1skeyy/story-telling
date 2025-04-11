@@ -2,8 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Import function bằng lệnh "from processing_function import *"
-___all___ = ["pscti", "acs", "cavo", "gcb", "vvc"]
-
+__all__ = ["pscti", "acs", "cavo", "gcbp", "vvc", "vh"]
 
 # process_selected_columns_to_int
 def pscti(dataframe, column_names):
@@ -117,14 +116,14 @@ def cavo(dataframe, column_names):
     plt.show()
     return counts
     # Example usage of the functions
-    df = pd.DataFrame(data)
+    #df = pd.DataFrame(data)
     # Example 3: Count and visualize the number of '1's in specified columns
-    column_names = ["A", "B", "C"]
-    graph1 = cavo(df, column_names)
+    #column_names = ["A", "B", "C"]
+    #graph1 = cavo(df, column_names)
 
 
 # get_columns_by_prefix
-def gcb(dataframe, prefix):
+def gcbp(dataframe, prefix):
     """
     Retrieves all column names in the dataframe that start with the specified prefix.
     Parameters:
@@ -143,10 +142,10 @@ def gcb(dataframe, prefix):
     selected_cols = [col for col in dataframe.columns if col.startswith(prefix)]
     return selected_cols
     # Example usage
-    df = pd.DataFrame(data)
-    prefix = "Q7"
-    selected_cols = get_columns_by_prefix(df, prefix)
-    print(selected_cols)
+    #df = pd.DataFrame(data)
+    #prefix = "Q7"
+    #selected_cols = get_columns_by_prefix(df, prefix)
+    #print(selected_cols)
 
 
 # visualize_variable_counts
@@ -183,3 +182,44 @@ def vvc(dataframe, column_name):
     #df = pd.DataFrame(data)
     #column_name = ["Q7_1", "Q7_2"]
     #graph1 = visualize_variable_counts(df, column_name)
+
+
+
+# visualize_heatmap
+def vh(dataframe, column_x, column_y):
+        """
+        Creates a heatmap based on the counts of unique value pairs in two selected columns.
+        Parameters:
+        - dataframe (pd.DataFrame): The dataframe to process.
+        - column_x (str): The column name for the x-axis.
+        - column_y (str): The column name for the y-axis.
+        Returns:
+        - None
+        ---------------------------------------------------------------------
+        Tạo một heatmap dựa trên số lượng cặp giá trị duy nhất trong hai cột được chọn.
+        Tham số:
+        - dataframe (pd.DataFrame): DataFrame cần xử lý.
+        - column_x (str): Tên cột cho trục x.
+        - column_y (str): Tên cột cho trục y.
+        Trả về:
+        - None
+        """
+        if column_x in dataframe.columns and column_y in dataframe.columns:
+            heatmap_data = pd.crosstab(dataframe[column_y], dataframe[column_x])
+            plt.figure(figsize=(10, 8))
+            plt.imshow(heatmap_data, cmap="viridis", aspect="auto")
+            plt.colorbar(label="Count")
+            plt.xticks(range(len(heatmap_data.columns)), heatmap_data.columns, rotation=45)
+            plt.yticks(range(len(heatmap_data.index)), heatmap_data.index)
+            plt.xlabel(column_x)
+            plt.ylabel(column_y)
+            plt.title(f"Heatmap of {column_y} vs {column_x}")
+            plt.tight_layout()
+            plt.show()
+        else:
+            print(f"One or both columns '{column_x}' and '{column_y}' not found in the dataframe.")
+        # Example usage
+        #df = pd.DataFrame(data)
+        #column_x = "Q7_1"
+        #column_y = "Q7_2"
+        #heatmap1 = visualize_heatmap(df, column_x, column_y)
