@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Import function bằng lệnh "from processing_function import *"
-___all___ = ["pscti", "acs", "cavo", "gcbp", "vvc"]
+___all___ = ["pscti", "acs", "cavo", "gcb", "vvc"]
 
 
 # process_selected_columns_to_int
@@ -124,7 +124,7 @@ def cavo(dataframe, column_names):
 
 
 # get_columns_by_prefix
-def gcbp(dataframe, prefix):
+def gcb(dataframe, prefix):
     """
     Retrieves all column names in the dataframe that start with the specified prefix.
     Parameters:
