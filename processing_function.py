@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Import function bằng lệnh "from processing_function import *"
-___all___ = ["pscti", "acs", "cavo", "gcbp"]
+___all___ = ["pscti", "acs", "cavo", "gcbp", "vvc"]
 
 
 # process_selected_columns_to_int
