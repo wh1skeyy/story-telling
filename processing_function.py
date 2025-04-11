@@ -3,6 +3,28 @@ import matplotlib.pyplot as plt
 
 # Import function bằng lệnh "from processing_function import *"
 __all__ = ["pscti", "acs", "cavo", "gcbp", "vvc", "vh"]
+"""
+Tên đầy đủ của các hàm và cách sử dụng:
+1. process_selected_columns_to_int (pscti)
+- Xử lý các cột được chỉ định trong dataframe:
+    + Thay thế các giá trị NA bằng 0.
+    + Thay thế các giá trị không phải NA bằng 1.
+    + Chuyển kiểu dữ liệu của cột thành kiểu int.
+2. add_columns_sum (acs)
+    - Cộng tổng giá trị của các cột được chỉ định cho từng hàng và thêm kết quả vào một cột mới.
+    - Tùy chọn chèn cột mới vào vị trí được chỉ định.
+3. count_and_visualize_ones (cavo)
+    - Đếm số lượng '1' trong các cột được chỉ định và hiển thị biểu đồ cột.
+4. get_columns_by_prefix (gcbp)
+    - Lấy tất cả các tên cột trong dataframe bắt đầu bằng tiền tố được chỉ định.
+5. visualize_variable_counts (vvc)
+    - Hiển thị số lần xuất hiện của từng giá trị duy nhất trong cột được chỉ định bằng biểu đồ cột.
+6. visualize_heatmap (vh)
+    - Tạo một heatmap dựa trên số lượng cặp giá trị duy nhất trong hai cột được chọn.
+
+Cuộn xuống từng function để xem chi tiết cách sử dụng.
+"""
+
 
 # process_selected_columns_to_int
 def pscti(dataframe, column_names):
