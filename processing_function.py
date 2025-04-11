@@ -147,3 +147,38 @@ def gcbp(dataframe, prefix):
     prefix = "Q7"
     selected_cols = get_columns_by_prefix(df, prefix)
     print(selected_cols)
+
+
+def visualize_variable_counts(dataframe, column_name):
+    """
+    Visualizes the count of each unique value in the specified column with a bar chart.
+    Parameters:
+    - dataframe (pd.DataFrame): The dataframe to process.
+    - column_name (str): The column name to count and visualize.
+    Returns:
+    - None
+    ---------------------------------------------------------------------
+    Hiển thị số lần xuất hiện của từng giá trị duy nhất trong cột được chỉ định bằng biểu đồ cột.
+    Tham số:
+    - dataframe (pd.DataFrame): DataFrame cần xử lý.
+    - column_name (str): Tên cột cần đếm và hiển thị.
+    Trả về:
+    - None
+    """
+    if column_name in dataframe.columns:
+        value_counts = dataframe[column_name].value_counts()
+        # Visualize the counts with a bar chart
+        plt.bar(value_counts.index.astype(str), value_counts.values, color="orange")
+        plt.xlabel("Values")
+        plt.ylabel("Count")
+        plt.title(f"Count of Values in Column '{column_name}'")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+    else:
+        print(f"Column '{column_name}' not found in the dataframe.")
+
+    # Example usage
+    #df = pd.DataFrame(data)
+    #column_name = ["Q7_1", "Q7_2"]
+    #graph1 = visualize_variable_counts(df, column_name)
