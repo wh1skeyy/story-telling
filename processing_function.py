@@ -23,6 +23,7 @@ Tên đầy đủ của các hàm và cách sử dụng:
     - Tạo một heatmap dựa trên số lượng cặp giá trị duy nhất trong hai cột được chọn.
 
 Cuộn xuống từng function để xem chi tiết cách sử dụng.
+Vào nhãn Issue để báo lỗi hoặc yêu cầu thêm tính năng.
 """
 
 
