@@ -149,7 +149,8 @@ def gcbp(dataframe, prefix):
     print(selected_cols)
 
 
-def visualize_variable_counts(dataframe, column_name):
+# visualize_variable_counts
+def vvc(dataframe, column_name):
     """
     Visualizes the count of each unique value in the specified column with a bar chart.
     Parameters:
