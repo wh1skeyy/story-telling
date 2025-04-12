@@ -1,18 +1,18 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Import function bằng lệnh "from processing_function import *"
-__all__ = ["pscti", "acs", "cavo", "gcbp", "vvc", "vh", "favc", "rcbfu"]
+# Import function bằng lệnh "from processing_function import *", nhập 'help()' hoặc 'help("tên func")' để xem hướng dẫn sử dụng.
+__all__ = ["col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col"]
 """
 Tên đầy đủ của các hàm và cách sử dụng:
-1. process_selected_columns_to_int (pscti)
-Command: pscti(dataframe, column_names)
+1. process_selected_columns_to_int (col_format) - Nên dùng sau 'rename_col'
+Command: col_format(dataframe, column_names)
 - Xử lý các cột được chỉ định trong dataframe:
     + Thay thế các giá trị NA bằng 0.
     + Thay thế các giá trị không phải NA bằng 1.
     + Chuyển kiểu dữ liệu của cột thành kiểu int.
-2. add_columns_sum (acs)
-Command: acs(dataframe, columns_to_sum, new_column_name, position=None) #Thay None bằng vị trí mong muốn
+2. add_columns_sum (add_sum_col)
+Command: add_sum_col(dataframe, columns_to_sum, new_column_name, position=None) #Thay None bằng vị trí mong muốn
     - Cộng tổng giá trị của các cột được chỉ định cho từng hàng và thêm kết quả vào một cột mới.
     - Tùy chọn chèn cột mới vào vị trí được chỉ định.
 3. count_and_visualize_ones (cavo)
@@ -24,14 +24,14 @@ Command: gcbp(dataframe, prefix)
 5. visualize_variable_counts (vvc)
 Command: vvc(dataframe, column_name, xlabel, ylabel, title)
     - Hiển thị số lần xuất hiện của từng giá trị duy nhất trong cột được chỉ định bằng biểu đồ cột.
-6. visualize_heatmap (vh)
-Command: vh(dataframe, column_x, column_y, title)
+6. visualize_heatmap (heatmapping)
+Command: heatmapping(dataframe, column_x, column_y, title)
     - Tạo một heatmap dựa trên số lượng cặp giá trị duy nhất trong hai cột được chọn.
 7. filter_and_visualize_choices (favc)
 Command: favc(dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title)
     - Lọc dataframe dựa trên điều kiện và hiển thị các lựa chọn cho một câu hỏi cụ thể.
-8. rename_columns_by_first_unique (rcbfu)
-Command: rcbfu(dataframe, columns, prefix)
+8. rename_columns_by_first_unique (rename_col)
+Command: rename_col(dataframe, columns, prefix)
     - Đổi tên các cột được chỉ định bằng cách sử dụng giá trị duy nhất không null đầu tiên được tìm thấy trong mỗi cột.
     - Nếu không tìm thấy giá trị duy nhất hợp lệ cho một cột, tên cột sẽ không được thay đổi.
 
@@ -44,8 +44,49 @@ Note for developer:
 """
 
 
+def help(func_search=None):
+    """
+    Generates a markdown file (HELP.md) explaining how to use each function.
+    If called without arguments, help() generates documentation for all functions.
+    If a function name is provided (e.g., help("col_format")),
+    only the documentation for that specific function is generated.
+    """
+    # Get mapping of function names from __all__ to the functions in globals
+    functions = {
+        name: globals()[name]
+        for name in __all__
+        if name in globals() and callable(globals()[name])
+    }
+
+    md_lines = ["# Function Documentation", ""]
+    if func_search is None:
+        # Document all functions
+        for name, func in functions.items():
+            md_lines.append(f"## {name}")
+            md_lines.append("")
+            doc = func.__doc__ or "No documentation available."
+            md_lines.append(doc.strip())
+            md_lines.append("")
+    else:
+        # Document only one function if found
+        if func_search in functions:
+            md_lines.append(f"## {func_search}")
+            md_lines.append("")
+            doc = functions[func_search].__doc__ or "No documentation available."
+            md_lines.append(doc.strip())
+            md_lines.append("")
+        else:
+            print(f"Function '{func_search}' not found.")
+            return
+
+    # Write the markdown documentation to HELP.md
+    with open("HELP.md", "w", encoding="utf-8") as f:
+        f.write("\n".join(md_lines))
+    print("HELP.md generated successfully.")
+
+
 # process_selected_columns_to_int
-def pscti(dataframe, column_names):
+def col_format(dataframe, column_names):
     """
     Processes the specified columns in the dataframe:
     - Replaces NA values with 0.
@@ -77,15 +118,15 @@ def pscti(dataframe, column_names):
     df = pd.DataFrame(data)
     # Specify columns to process
     column_names = ["A", "B", "C"]
-    # Apply the pscti function
-    data = pscti(df, column_names)
+    # Apply the col_format function
+    data = col_format(df, column_names)
     # Print the updated dataframe
     print(data)
 
 
 
 # add_columns_sum
-def acs(dataframe, columns_to_sum, new_column_name, position=None):
+def add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):
     """
     Sums the values of the specified columns for each row and adds the result as a new column.
     Optionally inserts the new column at the specified position.
@@ -121,7 +162,7 @@ def acs(dataframe, columns_to_sum, new_column_name, position=None):
     # Example 2: Add a new column as the sum of specified columns
     columns_to_sum = ["A", "B", "C"]
     new_column_name = "Sum_ABC"
-    data = acs(
+    data = add_sum_col(
         df, columns_to_sum, new_column_name, position=2
     )  # Cột được thêm vào ở vị trí thứ 2
     data.head()
@@ -243,7 +284,7 @@ def vvc(dataframe, column_name, xlabel, ylabel, title):
 
 
 # visualize_heatmap
-def vh(dataframe, column_x, column_y, title):
+def heatmapping(dataframe, column_x, column_y, title):
     """
     Creates a heatmap based on the counts of unique value pairs in two selected columns.
     Parameters:
@@ -349,7 +390,7 @@ def favc(
 
 
 # rename_columns_by_first_unique
-def rcbfu(dataframe, columns, prefix):
+def rename_col(dataframe, columns, prefix):
         """
         Renames the specified columns using the first non-null unique value found in each column.
         If no valid unique value is found for a column, the column name remains unchanged.
@@ -384,7 +425,7 @@ def rcbfu(dataframe, columns, prefix):
     # df = pd.DataFrame(data)
     # columns = ["Q7_Part1", "Q7_Part2"]
     # prefix = "Q7_"
-    # renamed_df = rcbfu(df, columns, prefix)
+    # renamed_df = rename_col(df, columns, prefix)
     # output -> "Q7_Python", "Q7_R"
     
 
