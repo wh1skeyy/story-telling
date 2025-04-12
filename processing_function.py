@@ -43,7 +43,8 @@ Vào nhãn Issue để báo lỗi hoặc yêu cầu thêm tính năng hoặc con
 Note for developer:
 1.  Chạy 'from processing_function import *' lần 2 sẽ báo lỗi, đây là tính năng, không phải bug.
     Để chạy lại, khởi động lại kernel hoặc xóa cache của kernel.
-2
+2. fhelp() chỉ hoạt động trong cửa sổ python, không dùng trong cửa sổ markdown.
+3. Không cần cài đặt pandas và matplotlib, function tự cài đặt sẵn
 """
 
 
