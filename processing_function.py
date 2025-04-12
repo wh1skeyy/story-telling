@@ -75,6 +75,7 @@ def pscti(dataframe, column_names):
     print(data)
 
 
+
 # add_columns_sum
 def acs(dataframe, columns_to_sum, new_column_name, position=None):
     """
@@ -118,6 +119,7 @@ def acs(dataframe, columns_to_sum, new_column_name, position=None):
     data.head()
 
 
+
 ##count_and_visualize_ones
 def cavo(dataframe, column_names):
     """
@@ -152,6 +154,7 @@ def cavo(dataframe, column_names):
     # Example 3: Count and visualize the number of '1's in specified columns
     # column_names = ["A", "B", "C"]
     # graph1 = cavo(df, column_names)
+
 
 
 # get_columns_by_prefix
@@ -191,6 +194,7 @@ def gcbp(dataframe, prefix):
     # print(selected_cols)
 
 
+
 # visualize_variable_counts
 def vvc(dataframe, column_name, xlabel, ylabel, title):
     """
@@ -227,6 +231,7 @@ def vvc(dataframe, column_name, xlabel, ylabel, title):
     # df = pd.DataFrame(data)
     # column_name = ["Q7_1", "Q7_2"]
     # graph1 = visualize_variable_counts(df, column_name)
+
 
 
 # visualize_heatmap
@@ -271,6 +276,8 @@ def vh(dataframe, column_x, column_y, title):
     # column_x = "Q7_1"
     # column_y = "Q7_2"
     # heatmap1 = visualize_heatmap(df, column_x, column_y)
+
+
 
 # filter_and_visualize_choices
 def favc(
@@ -321,7 +328,6 @@ def favc(
             print(
                 f"One or both columns '{filter_column}' and '{question_column}' not found in the dataframe."
             )
-
     # Example usage
     # df = pd.DataFrame(data)
     # filter_column = "Q7_1"
@@ -331,6 +337,8 @@ def favc(
     # ylabel = "Title"
     # title = "Roles that use Python programming language"
     # graph1 = filter_and_visualize_choices(df, filter_column, filter_value, question_column, xlabel, ylabel, title)
+
+
 
 # rename_columns_by_first_unique
 def rcbfu(dataframe, columns, prefix):
