@@ -61,10 +61,10 @@ def fhelp(function_name=None):
             "- Xử lý các cột được chỉ định trong dataframe:\n"
             "    + Thay thế các giá trị NA bằng 0.\n"
             "    + Thay thế các giá trị không phải NA bằng 1.\n"
-            "    + Chuyển kiểu dữ liệu của cột thành kiểu int."
+            "    + Chuyển kiểu dữ liệu của cột thành kiểu int.\n"
             "  Ví dụ:\n"
             "    df = pd.DataFrame(data)\n"
-            "    column_names = ["Q7_Part1", "Q7_Part2"]\n"
+            "    column_names = ['Q7_Part1', 'Q7_Part2']\n"
             "    df = col_format(df, column_names)\n"
         ),
         "add_sum_col": (
@@ -88,7 +88,7 @@ def fhelp(function_name=None):
             "  - Lấy tất cả các tên cột bắt đầu bằng tiền tố được chỉ định.\n"
             "  Ví dụ:\n"
             "    df = pd.DataFrame(data)\n"
-            "    cols = gcbp(df, 'Q7_Part1', "Q7")\n"
+            "    cols = gcbp(df, 'Q7_Part1', 'Q7')\n"
             "    print(cols)"
         ),
         "vvc": (
@@ -96,7 +96,7 @@ def fhelp(function_name=None):
             "  - Hiển thị số lần xuất hiện của từng giá trị duy nhất trong cột được chỉ định bằng biểu đồ cột.\n"
             "  Ví dụ:\n"
             "    df = pd.DataFrame(data)\n"
-            "    column_name = "Q5"\n"
+            "    column_name = 'Q5'\n"
             "    vvc(df, column_name, 'Categories', 'Counts', 'Category Count')"
         ),
         "heatmapping": (
