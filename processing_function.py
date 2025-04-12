@@ -47,6 +47,7 @@ Note for developer:
 
 
 def fhelp(function_name=None):
+
     """
     Hiển thị hướng dẫn sử dụng cho một hàm cụ thể hoặc tất cả các hàm trong module.
     Cách sử dụng:
@@ -134,14 +135,6 @@ def fhelp(function_name=None):
             print(info)
         else:
             print(f"Không có thông tin cho hàm '{function_name}'.")
-            
-# Example calls:
-# To see info about a specific function:
-# fhelp("col_format")
-# To see info about all functions:
-# fhelp()
-
-
 # process_selected_columns_to_int
 def col_format(dataframe, column_names):
     """
@@ -168,7 +161,7 @@ def col_format(dataframe, column_names):
     for column_name in column_names:
         if column_name in dataframe.columns:
             dataframe[column_name] = (
-                dataframe[column_name].apply(lambda x: 1 if x != 0 else 0).astype(int)
+                dataframe[column_name].apply(lambda x: 1 if pd.notna(x) else 0).astype(int)
             )
     return dataframe
     # Example usage of the functions
@@ -179,8 +172,6 @@ def col_format(dataframe, column_names):
     data = col_format(df, column_names)
     # Print the updated dataframe
     print(data)
-
-
 
 # add_columns_sum
 def add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):
@@ -224,8 +215,6 @@ def add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):
     )  # Cột được thêm vào ở vị trí thứ 2
     data.head()
 
-
-
 ##count_and_visualize_ones
 def cavo(dataframe, column_names):
     """
@@ -261,10 +250,8 @@ def cavo(dataframe, column_names):
     # column_names = ["A", "B", "C"]
     # graph1 = cavo(df, column_names)
 
-
-
 # get_columns_by_prefix
-def gcbp(dataframe, selected_cols, prefix):
+def gcbp(dataframe, prefix):
     """
     Retrieves all column names in the dataframe that start with the specified prefix.
     Parameters:
