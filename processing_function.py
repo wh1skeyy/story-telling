@@ -153,7 +153,7 @@ def cavo(dataframe, column_names):
     plt.xlabel("Columns")
     plt.ylabel("Users Count")
     plt.title("Quantity")
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=90)
     plt.tight_layout()
     plt.show()
     return counts
