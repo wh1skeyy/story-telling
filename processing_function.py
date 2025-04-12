@@ -6,24 +6,32 @@ __all__ = ["pscti", "acs", "cavo", "gcbp", "vvc", "vh", "favc", "rcbfu"]
 """
 Tên đầy đủ của các hàm và cách sử dụng:
 1. process_selected_columns_to_int (pscti)
+Command: pscti(dataframe, column_names)
 - Xử lý các cột được chỉ định trong dataframe:
     + Thay thế các giá trị NA bằng 0.
     + Thay thế các giá trị không phải NA bằng 1.
     + Chuyển kiểu dữ liệu của cột thành kiểu int.
 2. add_columns_sum (acs)
+Command: acs(dataframe, columns_to_sum, new_column_name, position=None) #Thay None bằng vị trí mong muốn
     - Cộng tổng giá trị của các cột được chỉ định cho từng hàng và thêm kết quả vào một cột mới.
     - Tùy chọn chèn cột mới vào vị trí được chỉ định.
 3. count_and_visualize_ones (cavo)
+Command: cavo(dataframe, column_names)
     - Đếm số lượng '1' trong các cột được chỉ định và hiển thị biểu đồ cột.
 4. get_columns_by_prefix (gcbp)
+Command: gcbp(dataframe, prefix)
     - Lấy tất cả các tên cột trong dataframe bắt đầu bằng tiền tố được chỉ định.
 5. visualize_variable_counts (vvc)
+Command: vvc(dataframe, column_name, xlabel, ylabel, title)
     - Hiển thị số lần xuất hiện của từng giá trị duy nhất trong cột được chỉ định bằng biểu đồ cột.
 6. visualize_heatmap (vh)
+Command: vh(dataframe, column_x, column_y, title)
     - Tạo một heatmap dựa trên số lượng cặp giá trị duy nhất trong hai cột được chọn.
 7. filter_and_visualize_choices (favc)
+Command: favc(dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title)
     - Lọc dataframe dựa trên điều kiện và hiển thị các lựa chọn cho một câu hỏi cụ thể.
 8. rename_columns_by_first_unique (rcbfu)
+Command: rcbfu(dataframe, columns, prefix)
     - Đổi tên các cột được chỉ định bằng cách sử dụng giá trị duy nhất không null đầu tiên được tìm thấy trong mỗi cột.
     - Nếu không tìm thấy giá trị duy nhất hợp lệ cho một cột, tên cột sẽ không được thay đổi.
 
@@ -378,3 +386,6 @@ def rcbfu(dataframe, columns, prefix):
     # prefix = "Q7_"
     # renamed_df = rcbfu(df, columns, prefix)
     # output -> "Q7_Python", "Q7_R"
+    
+
+
