@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # Import function bằng lệnh "from processing_function import *", 
 # Nhập 'help()' hoặc 'help("tên func")' để xem hướng dẫn sử dụng.
 
-__all__ = ["col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col"]
+__all__ = ["fhelp", "col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col"]
 """
 Tên đầy đủ của các hàm và cách sử dụng:
 1. process_selected_columns_to_int (col_format) - Nên dùng sau 'rename_col'
@@ -48,80 +48,84 @@ Note for developer:
 
 def fhelp(function_name=None):
     """
-    Displays usage instructions for a specific function or for all functions in the module.
-    Usage:
+    Hiển thị hướng dẫn sử dụng cho một hàm cụ thể hoặc tất cả các hàm trong module.
+    Cách sử dụng:
       fhelp() 
-         - Displays usage for all functions.
+         - Hiển thị hướng dẫn cho tất cả các hàm.
       fhelp("col_format") 
-         - Displays usage for the 'col_format' function.
+         - Hiển thị hướng dẫn cho hàm 'col_format'.
     """
     usage = {
         "col_format": (
-            "col_format(dataframe, column_names):\n"
-            "  - Processes specified columns by replacing non-NA values with 1, NA with 0, and converting to int.\n"
-            "  Example:\n"
-            "    import pandas as pd\n"
-            "    df = pd.DataFrame({'A': [None, 2, 3], 'B': [4, None, 6]})\n"
-            "    df = col_format(df, ['A', 'B'])\n"
-            "    print(df)"
+            "Lệnh: col_format(dataframe, column_names)\n"
+            "- Xử lý các cột được chỉ định trong dataframe:\n"
+            "    + Thay thế các giá trị NA bằng 0.\n"
+            "    + Thay thế các giá trị không phải NA bằng 1.\n"
+            "    + Chuyển kiểu dữ liệu của cột thành kiểu int."
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    column_names = ["Q7_Part1", "Q7_Part2"]\n"
+            "    df = col_format(df, column_names)\n"
         ),
         "add_sum_col": (
             "add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):\n"
-            "  - Sums the values of specified columns for each row and adds the result in a new column.\n"
-            "  Example:\n"
-            "    df = pd.DataFrame({'A': [1, 2], 'B': [3, 4], 'C': [5, 6]})\n"
-            "    df = add_sum_col(df, ['A', 'B', 'C'], 'Total')\n"
+            "  - Cộng tổng giá trị của các cột được chỉ định cho từng hàng và thêm kết quả vào một cột mới.\n"
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    df = add_sum_col(df, ['Q7_Part1', 'Q7_Part2', 'Q7_Part3'], 'Q7_Total', position=10)\n"
             "    print(df)"
         ),
         "cavo": (
             "cavo(dataframe, column_names):\n"
-            "  - Counts the occurrences of '1' in the specified columns and visualizes the counts with a bar chart.\n"
-            "  Example:\n"
-            "    df = pd.DataFrame({'A': [0, 1, 1], 'B': [1, 0, 1]})\n"
-            "    counts = cavo(df, ['A', 'B'])\n"
+            "  - Đếm số lượng '1' trong các cột được chỉ định và hiển thị biểu đồ cột.\n"
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    counts = cavo(df, ['Q7_Part1', 'Q7_Part2', 'Q7_Part3'])\n"
             "    print(counts)"
         ),
         "gcbp": (
-            "gcbp(dataframe, prefix):\n"
-            "  - Retrieves all column names that start with the given prefix.\n"
-            "  Example:\n"
-            "    df = pd.DataFrame({'Q1_A': [1, 2], 'Q1_B': [3, 4], 'A': [5, 6]})\n"
-            "    cols = gcbp(df, 'Q1')\n"
+            "gcbp(dataframe, selected_cols, prefix):\n"
+            "  - Lấy tất cả các tên cột bắt đầu bằng tiền tố được chỉ định.\n"
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    cols = gcbp(df, 'Q7_Part1', "Q7")\n"
             "    print(cols)"
         ),
         "vvc": (
             "vvc(dataframe, column_name, xlabel, ylabel, title):\n"
-            "  - Visualizes the count of each unique value in the specified column with a bar chart.\n"
-            "  Example:\n"
-            "    df = pd.DataFrame({'Category': ['a', 'b', 'a', 'c']})\n"
-            "    vvc(df, 'Category', 'Categories', 'Counts', 'Category Count')"
+            "  - Hiển thị số lần xuất hiện của từng giá trị duy nhất trong cột được chỉ định bằng biểu đồ cột.\n"
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    column_name = "Q5"\n"
+            "    vvc(df, column_name, 'Categories', 'Counts', 'Category Count')"
         ),
         "heatmapping": (
             "heatmapping(dataframe, column_x, column_y, title):\n"
-            "  - Creates a heatmap based on the counts of unique value pairs between two columns.\n"
-            "  Example:\n"
-            "    df = pd.DataFrame({'X': ['a', 'a', 'b'], 'Y': ['1', '2', '1']})\n"
-            "    heatmapping(df, 'X', 'Y', 'Heatmap Example')"
+            "  - Tạo một heatmap dựa trên số lượng cặp giá trị duy nhất giữa hai cột.\n"
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    heatmapping(df, 'Q4', 'Q5', 'Heatmap Example')"
         ),
         "favc": (
             "favc(dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title):\n"
-            "  - Filters the dataframe on a specified condition and visualizes the count of values for a given question.\n"
-            "  Example:\n"
-            "    df = pd.DataFrame({'Filter': ['A', 'B', 'A'], 'Choice': [1, 2, 2]})\n"
-            "    favc(df, 'Filter', 'A', 'Choice', 'Choice', 'Count', 'Filtered Choices')"
+            "  - Lọc dataframe dựa trên điều kiện và hiển thị số lượng giá trị cho một câu hỏi cụ thể.\n"
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    favc(df, 'Q7_Part1', '1', 'Q5', 'Choice', 'Count', 'Roles that use Python programming language')"
         ),
         "rename_col": (
             "rename_col(dataframe, columns, prefix):\n"
-            "  - Renames each of the specified columns using the first non-null unique value found in that column, prefixed with a given string.\n"
-            "  Example:\n"
-            "    df = pd.DataFrame({'Q1': [None, 'Python'], 'Q2': [None, 'R']})\n"
-            "    df = rename_col(df, ['Q1', 'Q2'], 'Lang: ')\n"
+            "  - Đổi tên các cột được chỉ định bằng giá trị duy nhất không null đầu tiên tìm thấy trong cột đó, kèm theo tiền tố.\n"
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    columns = ['Q7_Part1', 'Q7_Part2']\n"
+            "    df = rename_col(df, columns, 'Q7_')\n"
             "    print(df)"
         )
     }
     
     if function_name is None:
-        print("Usage instructions for processing_function module:")
+        print("Hướng dẫn sử dụng cho module processing_function:")
         for func, desc in usage.items():
             print("\n" + desc + "\n" + ("-" * 60))
     else:
@@ -129,7 +133,7 @@ def fhelp(function_name=None):
         if info:
             print(info)
         else:
-            print(f"No information available for function '{function_name}'.")
+            print(f"Không có thông tin cho hàm '{function_name}'.")
             
 # Example calls:
 # To see info about a specific function:
@@ -260,7 +264,7 @@ def cavo(dataframe, column_names):
 
 
 # get_columns_by_prefix
-def gcbp(dataframe, prefix):
+def gcbp(dataframe, selected_cols, prefix):
     """
     Retrieves all column names in the dataframe that start with the specified prefix.
     Parameters:
