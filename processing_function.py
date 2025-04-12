@@ -24,6 +24,10 @@ Tên đầy đủ của các hàm và cách sử dụng:
 
 Cuộn xuống từng function để xem chi tiết cách sử dụng.
 Vào nhãn Issue để báo lỗi hoặc yêu cầu thêm tính năng.
+Note for developer:
+1.  Chạy from processing_function import * lần 2 sẽ báo lỗi, đây là tính năng, không phải bug.
+    Để chạy lại, khởi động lại kernel hoặc xóa cache của kernel.
+2
 """
 
 
