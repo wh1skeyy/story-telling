@@ -162,7 +162,18 @@ def gcbp(dataframe, prefix):
     Trả về:
     - list: Danh sách các tên cột bắt đầu bằng tiền tố được chỉ định.
     """
+    if not isinstance(dataframe, pd.DataFrame):
+        return "Error: The input 'dataframe' must be a pandas DataFrame."
+    if not isinstance(prefix, str):
+        return "Error: The input 'prefix' must be a string."
+    if dataframe.empty:
+        return "Error: The input dataframe is empty."
+    if not prefix:
+        return "Error: The prefix cannot be empty."
+
     selected_cols = [col for col in dataframe.columns if col.startswith(prefix)]
+    if not selected_cols:
+        return f"No columns found starting with the prefix '{prefix}'."
     return selected_cols
     # Example usage
     #df = pd.DataFrame(data)
@@ -172,12 +183,13 @@ def gcbp(dataframe, prefix):
 
 
 # visualize_variable_counts
-def vvc(dataframe, column_name):
+def vvc(dataframe, column_name, xlabel, ylabel, title):
     """
     Visualizes the count of each unique value in the specified column with a bar chart.
     Parameters:
     - dataframe (pd.DataFrame): The dataframe to process.
     - column_name (str): The column name to count and visualize.
+    - title (str): Title for the bar chart.
     Returns:
     - None
     ---------------------------------------------------------------------
@@ -185,6 +197,7 @@ def vvc(dataframe, column_name):
     Tham số:
     - dataframe (pd.DataFrame): DataFrame cần xử lý.
     - column_name (str): Tên cột cần đếm và hiển thị.
+    - title (str): Tiêu đề cho biểu đồ cột.
     Trả về:
     - None
     """
@@ -192,9 +205,9 @@ def vvc(dataframe, column_name):
         value_counts = dataframe[column_name].value_counts()
         # Visualize the counts with a bar chart
         plt.bar(value_counts.index.astype(str), value_counts.values, color="orange")
-        plt.xlabel("Values")
-        plt.ylabel("Count")
-        plt.title(f"Count of Values in Column '{column_name}'")
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title(title)
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
@@ -209,13 +222,14 @@ def vvc(dataframe, column_name):
 
 
 # visualize_heatmap
-def vh(dataframe, column_x, column_y):
+def vh(dataframe, column_x, column_y, title):
         """
         Creates a heatmap based on the counts of unique value pairs in two selected columns.
         Parameters:
         - dataframe (pd.DataFrame): The dataframe to process.
         - column_x (str): The column name for the x-axis.
         - column_y (str): The column name for the y-axis.
+        - title (str): Title for the heatmap.
         Returns:
         - None
         ---------------------------------------------------------------------
@@ -224,6 +238,7 @@ def vh(dataframe, column_x, column_y):
         - dataframe (pd.DataFrame): DataFrame cần xử lý.
         - column_x (str): Tên cột cho trục x.
         - column_y (str): Tên cột cho trục y.
+        - title (str): Tiêu đề cho heatmap.
         Trả về:
         - None
         """
@@ -236,7 +251,7 @@ def vh(dataframe, column_x, column_y):
             plt.yticks(range(len(heatmap_data.index)), heatmap_data.index)
             plt.xlabel(column_x)
             plt.ylabel(column_y)
-            plt.title(f"Heatmap of {column_y} vs {column_x}")
+            plt.title(title)
             plt.tight_layout()
             plt.show()
         else:
@@ -246,3 +261,57 @@ def vh(dataframe, column_x, column_y):
         #column_x = "Q7_1"
         #column_y = "Q7_2"
         #heatmap1 = visualize_heatmap(df, column_x, column_y)
+        
+        
+# filter_and_visualize_choices
+        def filter_and_visualize_choices(dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title):
+            """
+            Filters the dataframe based on a condition and visualizes the choices for a specific question.
+            Parameters:
+            - dataframe (pd.DataFrame): The dataframe to process.
+            - filter_column (str): The column to apply the filter on.
+            - filter_value (any): The value to filter the column by.
+            - question_column (str): The column representing the question to visualize choices for.
+            - xlabel (str): Label for the x-axis of the chart.
+            - ylabel (str): Label for the y-axis of the chart.
+            - title (str): Title for the chart.
+            Returns:
+            - None
+            ---------------------------------------------------------------------
+            Lọc dataframe dựa trên điều kiện và hiển thị các lựa chọn cho một câu hỏi cụ thể.
+            Tham số:
+            - dataframe (pd.DataFrame): DataFrame cần xử lý.
+            - filter_column (str): Tên cột để áp dụng bộ lọc.
+            - filter_value (any): Giá trị để lọc cột.
+            - question_column (str): Tên cột đại diện cho câu hỏi cần hiển thị lựa chọn.
+            - xlabel (str): Nhãn cho trục x của biểu đồ.
+            - ylabel (str): Nhãn cho trục y của biểu đồ.
+            - title (str): Tiêu đề cho biểu đồ.
+            Trả về:
+            - None
+            """
+            if filter_column in dataframe.columns and question_column in dataframe.columns:
+                filtered_df = dataframe[dataframe[filter_column] == filter_value]
+                if not filtered_df.empty:
+                    value_counts = filtered_df[question_column].value_counts()
+                    # Visualize the counts with a bar chart
+                    plt.bar(value_counts.index.astype(str), value_counts.values, color="green")
+                    plt.xlabel(xlabel)
+                    plt.ylabel(ylabel)
+                    plt.title(title)
+                    plt.xticks(rotation=45)
+                    plt.tight_layout()
+                    plt.show()
+                else:
+                    print(f"No data found for {filter_column} = {filter_value}.")
+            else:
+                print(f"One or both columns '{filter_column}' and '{question_column}' not found in the dataframe.")
+        # Example usage
+        #df = pd.DataFrame(data)
+        #filter_column = "Q7_1"
+        #filter_value = "1"
+        #question_column = "Q5"
+        #xlabel = "Quantity"
+        #ylabel = "Title"
+        #title = "Roles that use Python programming language"
+        #graph1 = filter_and_visualize_choices(df, filter_column, filter_value, question_column, xlabel, ylabel, title)
