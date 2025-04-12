@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Import function bằng lệnh "from processing_function import *"
-__all__ = ["pscti", "acs", "cavo", "gcbp", "vvc", "vh"]
+__all__ = ["pscti", "acs", "cavo", "gcbp", "vvc", "vh", "favc", "rcbfu"]
 """
 Tên đầy đủ của các hàm và cách sử dụng:
 1. process_selected_columns_to_int (pscti)
@@ -267,8 +267,8 @@ def vh(dataframe, column_x, column_y, title):
     # column_y = "Q7_2"
     # heatmap1 = visualize_heatmap(df, column_x, column_y)
 
-    # filter_and_visualize_choices
-    def filter_and_visualize_choices(
+# filter_and_visualize_choices
+def favc(
         dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title
     ):
         """
@@ -327,8 +327,8 @@ def vh(dataframe, column_x, column_y, title):
     # title = "Roles that use Python programming language"
     # graph1 = filter_and_visualize_choices(df, filter_column, filter_value, question_column, xlabel, ylabel, title)
 
-    # rename_columns_by_first_unique
-    def rcbfu(dataframe, columns, prefix):
+# rename_columns_by_first_unique
+def rcbfu(dataframe, columns, prefix):
         """
         Renames the specified columns using the first non-null unique value found in each column.
         If no valid unique value is found for a column, the column name remains unchanged.
@@ -359,3 +359,9 @@ def vh(dataframe, column_x, column_y, title):
                     if new_col not in dataframe.columns:
                         rename_mapping[col] = prefix + new_col
         return dataframe.rename(columns=rename_mapping)
+    # Example usage
+    # df = pd.DataFrame(data)
+    # columns = ["Q7_Part1", "Q7_Part2"]
+    # prefix = "Q7_"
+    # renamed_df = rcbfu(df, columns, prefix)
+    # output -> "Q7_Python", "Q7_R"
