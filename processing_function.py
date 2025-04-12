@@ -1,7 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Import function bằng lệnh "from processing_function import *", nhập 'help()' hoặc 'help("tên func")' để xem hướng dẫn sử dụng.
+# Import function bằng lệnh "from processing_function import *", 
+# Nhập 'help()' hoặc 'help("tên func")' để xem hướng dẫn sử dụng.
+
 __all__ = ["col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col"]
 """
 Tên đầy đủ của các hàm và cách sử dụng:
@@ -44,45 +46,96 @@ Note for developer:
 """
 
 
-def help(func_search=None):
+def fhelp(function_name=None):
     """
-    Generates a markdown file (HELP.md) explaining how to use each function.
-    If called without arguments, help() generates documentation for all functions.
-    If a function name is provided (e.g., help("col_format")),
-    only the documentation for that specific function is generated.
+    Displays usage instructions for a specific function or for all functions in the module.
+    Usage:
+      fhelp() 
+         - Displays usage for all functions.
+      fhelp("col_format") 
+         - Displays usage for the 'col_format' function.
     """
-    # Get mapping of function names from __all__ to the functions in globals
-    functions = {
-        name: globals()[name]
-        for name in __all__
-        if name in globals() and callable(globals()[name])
+    usage = {
+        "col_format": (
+            "col_format(dataframe, column_names):\n"
+            "  - Processes specified columns by replacing non-NA values with 1, NA with 0, and converting to int.\n"
+            "  Example:\n"
+            "    import pandas as pd\n"
+            "    df = pd.DataFrame({'A': [None, 2, 3], 'B': [4, None, 6]})\n"
+            "    df = col_format(df, ['A', 'B'])\n"
+            "    print(df)"
+        ),
+        "add_sum_col": (
+            "add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):\n"
+            "  - Sums the values of specified columns for each row and adds the result in a new column.\n"
+            "  Example:\n"
+            "    df = pd.DataFrame({'A': [1, 2], 'B': [3, 4], 'C': [5, 6]})\n"
+            "    df = add_sum_col(df, ['A', 'B', 'C'], 'Total')\n"
+            "    print(df)"
+        ),
+        "cavo": (
+            "cavo(dataframe, column_names):\n"
+            "  - Counts the occurrences of '1' in the specified columns and visualizes the counts with a bar chart.\n"
+            "  Example:\n"
+            "    df = pd.DataFrame({'A': [0, 1, 1], 'B': [1, 0, 1]})\n"
+            "    counts = cavo(df, ['A', 'B'])\n"
+            "    print(counts)"
+        ),
+        "gcbp": (
+            "gcbp(dataframe, prefix):\n"
+            "  - Retrieves all column names that start with the given prefix.\n"
+            "  Example:\n"
+            "    df = pd.DataFrame({'Q1_A': [1, 2], 'Q1_B': [3, 4], 'A': [5, 6]})\n"
+            "    cols = gcbp(df, 'Q1')\n"
+            "    print(cols)"
+        ),
+        "vvc": (
+            "vvc(dataframe, column_name, xlabel, ylabel, title):\n"
+            "  - Visualizes the count of each unique value in the specified column with a bar chart.\n"
+            "  Example:\n"
+            "    df = pd.DataFrame({'Category': ['a', 'b', 'a', 'c']})\n"
+            "    vvc(df, 'Category', 'Categories', 'Counts', 'Category Count')"
+        ),
+        "heatmapping": (
+            "heatmapping(dataframe, column_x, column_y, title):\n"
+            "  - Creates a heatmap based on the counts of unique value pairs between two columns.\n"
+            "  Example:\n"
+            "    df = pd.DataFrame({'X': ['a', 'a', 'b'], 'Y': ['1', '2', '1']})\n"
+            "    heatmapping(df, 'X', 'Y', 'Heatmap Example')"
+        ),
+        "favc": (
+            "favc(dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title):\n"
+            "  - Filters the dataframe on a specified condition and visualizes the count of values for a given question.\n"
+            "  Example:\n"
+            "    df = pd.DataFrame({'Filter': ['A', 'B', 'A'], 'Choice': [1, 2, 2]})\n"
+            "    favc(df, 'Filter', 'A', 'Choice', 'Choice', 'Count', 'Filtered Choices')"
+        ),
+        "rename_col": (
+            "rename_col(dataframe, columns, prefix):\n"
+            "  - Renames each of the specified columns using the first non-null unique value found in that column, prefixed with a given string.\n"
+            "  Example:\n"
+            "    df = pd.DataFrame({'Q1': [None, 'Python'], 'Q2': [None, 'R']})\n"
+            "    df = rename_col(df, ['Q1', 'Q2'], 'Lang: ')\n"
+            "    print(df)"
+        )
     }
-
-    md_lines = ["# Function Documentation", ""]
-    if func_search is None:
-        # Document all functions
-        for name, func in functions.items():
-            md_lines.append(f"## {name}")
-            md_lines.append("")
-            doc = func.__doc__ or "No documentation available."
-            md_lines.append(doc.strip())
-            md_lines.append("")
+    
+    if function_name is None:
+        print("Usage instructions for processing_function module:")
+        for func, desc in usage.items():
+            print("\n" + desc + "\n" + ("-" * 60))
     else:
-        # Document only one function if found
-        if func_search in functions:
-            md_lines.append(f"## {func_search}")
-            md_lines.append("")
-            doc = functions[func_search].__doc__ or "No documentation available."
-            md_lines.append(doc.strip())
-            md_lines.append("")
+        info = usage.get(function_name)
+        if info:
+            print(info)
         else:
-            print(f"Function '{func_search}' not found.")
-            return
-
-    # Write the markdown documentation to HELP.md
-    with open("HELP.md", "w", encoding="utf-8") as f:
-        f.write("\n".join(md_lines))
-    print("HELP.md generated successfully.")
+            print(f"No information available for function '{function_name}'.")
+            
+# Example calls:
+# To see info about a specific function:
+# fhelp("col_format")
+# To see info about all functions:
+# fhelp()
 
 
 # process_selected_columns_to_int
