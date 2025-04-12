@@ -21,6 +21,11 @@ Tên đầy đủ của các hàm và cách sử dụng:
     - Hiển thị số lần xuất hiện của từng giá trị duy nhất trong cột được chỉ định bằng biểu đồ cột.
 6. visualize_heatmap (vh)
     - Tạo một heatmap dựa trên số lượng cặp giá trị duy nhất trong hai cột được chọn.
+7. filter_and_visualize_choices (favc)
+    - Lọc dataframe dựa trên điều kiện và hiển thị các lựa chọn cho một câu hỏi cụ thể.
+8. rename_columns_by_first_unique (rcbfu)
+    - Đổi tên các cột được chỉ định bằng cách sử dụng giá trị duy nhất không null đầu tiên được tìm thấy trong mỗi cột.
+    - Nếu không tìm thấy giá trị duy nhất hợp lệ cho một cột, tên cột sẽ không được thay đổi.
 
 Cuộn xuống từng function để xem chi tiết cách sử dụng.
 Vào nhãn Issue để báo lỗi hoặc yêu cầu thêm tính năng hoặc contact thẳng Minh Lê.
