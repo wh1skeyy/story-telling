@@ -65,6 +65,7 @@ def fhelp(function_name=None):
             "    + Thay thế các giá trị NA bằng 0.\n"
             "    + Thay thế các giá trị không phải NA bằng 1.\n"
             "    + Chuyển kiểu dữ liệu của cột thành kiểu int.\n"
+            "  Không chạy lệnh 2 lần, chạy lần 2 tất cả biến số sẽ chuyển về 1\n"
             "  Ví dụ:\n"
             "    df = pd.DataFrame(data)\n"
             "    column_names = ['Q7_Part1', 'Q7_Part2']\n"
