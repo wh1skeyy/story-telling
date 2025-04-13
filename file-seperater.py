@@ -1,4 +1,8 @@
 import pandas as pd
+
+__all__ = [
+    "separate_roles",]
+
 def separate_roles(input_file):
     data = pd.read_csv(input_file)
 
