@@ -538,3 +538,41 @@ def replace_na(dataframe, column_name, value):
     else:
         print(f"Column '{column_name}' not found in the dataframe.")
     return dataframe
+
+
+
+
+#pie_draw
+def pie_draw(dataframe, column_name, title):
+    """
+    Visualizes the distribution of values in the specified column with a pie chart.
+    Parameters:
+    - dataframe (pd.DataFrame): The dataframe to process.
+    - column_name (str): The column name to visualize.
+    - title (str): Title for the pie chart.
+    Returns:
+    - None
+    ---------------------------------------------------------------------
+    Hiển thị phân phối các giá trị trong cột được chỉ định bằng biểu đồ tròn.
+    Tham số:
+    - dataframe (pd.DataFrame): DataFrame cần xử lý.
+    - column_name (str): Tên cột cần hiển thị.
+    - title (str): Tiêu đề cho biểu đồ tròn.
+    Trả về:
+    - None
+    """
+    if column_name in dataframe.columns:
+        value_counts = dataframe[column_name].value_counts()
+        plt.figure(figsize=(8, 8))
+        plt.pie(
+            value_counts.values,
+            labels=value_counts.index.astype(str),
+            autopct="%1.1f%%",
+            startangle=90,
+            colors=plt.cm.Paired.colors,
+        )
+        plt.title(title)
+        plt.tight_layout()
+        plt.show()
+    else:
+        print(f"Column '{column_name}' not found in the dataframe.")
