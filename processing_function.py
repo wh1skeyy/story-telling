@@ -317,13 +317,17 @@ def gcbp(dataframe, prefix):
 
 
 # visualize_variable_counts
-def vvc(dataframe, column_name, xlabel, ylabel, title):
+def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width=0.8, bar_spacing=0.2):
     """
     Visualizes the count of each unique value in the specified column with a bar chart.
     Parameters:
     - dataframe (pd.DataFrame): The dataframe to process.
     - column_name (str): The column name to count and visualize.
+    - xlabel (str): Label for the x-axis of the chart.
+    - ylabel (str): Label for the y-axis of the chart.
     - title (str): Title for the bar chart.
+    - bar_width (float): Width of the bars in the chart (default is 0.8).
+    - bar_spacing (float): Space between bars in the chart (default is 0.2).
     Returns:
     - None
     ---------------------------------------------------------------------
@@ -331,20 +335,28 @@ def vvc(dataframe, column_name, xlabel, ylabel, title):
     Tham số:
     - dataframe (pd.DataFrame): DataFrame cần xử lý.
     - column_name (str): Tên cột cần đếm và hiển thị.
+    - xlabel (str): Nhãn cho trục x của biểu đồ.
+    - ylabel (str): Nhãn cho trục y của biểu đồ.
     - title (str): Tiêu đề cho biểu đồ cột.
+    - bar_width (float): Độ rộng của các cột trong biểu đồ (mặc định là 0.8).
+    - bar_spacing (float): Khoảng cách giữa các cột trong biểu đồ (mặc định là 0.2).
     Trả về:
     - None
     """
     if column_name in dataframe.columns:
         value_counts = dataframe[column_name].value_counts()
+        indices = range(len(value_counts))
+        adjusted_indices = [i * (bar_width + bar_spacing) for i in indices]
+        
         # Visualize the counts with a bar chart
-        plt.bar(value_counts.index.astype(str), value_counts.values, color="orange")
+        plt.bar(adjusted_indices, value_counts.values, color="orange", width=bar_width)
+        plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=45)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.title(title)
-        plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
+        
     else:
         print(f"Column '{column_name}' not found in the dataframe.")
 
