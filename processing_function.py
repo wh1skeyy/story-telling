@@ -231,16 +231,15 @@ def add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):
         cols.remove(new_column_name)
         cols.insert(position, new_column_name)
         dataframe = dataframe[cols]
-    return dataframe
     # Example usage of the functions
-    df = pd.DataFrame(data)
+    #df = pd.DataFrame(data)
     # Example 2: Add a new column as the sum of specified columns
-    columns_to_sum = ["A", "B", "C"]
-    new_column_name = "Sum_ABC"
-    data = add_sum_col(
-        df, columns_to_sum, new_column_name, position=2
-    )  # Cột được thêm vào ở vị trí thứ 2
-    data.head()
+    #columns_to_sum = ["A", "B", "C"]
+    #new_column_name = "Sum_ABC"
+    #data = add_sum_col(
+    #    df, columns_to_sum, new_column_name, position=2
+    #)  # Cột được thêm vào ở vị trí thứ 2
+    #data.head()
 
 
 ##count_and_visualize_ones
