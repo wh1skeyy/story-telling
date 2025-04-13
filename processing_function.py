@@ -317,7 +317,7 @@ def gcbp(dataframe, prefix):
 
 
 # visualize_variable_counts
-def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width=0.8, bar_spacing=0.2):
+def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width, bar_spacing, angling):
     """
     Visualizes the count of each unique value in the specified column with a bar chart.
     Parameters:
@@ -347,9 +347,10 @@ def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width=0.8, bar_spacin
         value_counts = dataframe[column_name].value_counts()
         indices = range(len(value_counts))
         adjusted_indices = [i * (bar_width + bar_spacing) for i in indices]
+        labels_angle = angling
         # Visualize the counts with a bar chart
         plt.bar(adjusted_indices, value_counts.values, color="orange", width=bar_width)
-        plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=90)
+        plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=angling)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.title(title)
