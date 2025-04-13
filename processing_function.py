@@ -317,7 +317,7 @@ def gcbp(dataframe, prefix):
 
 
 # visualize_variable_counts
-def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width, bar_spacing, angling):
+def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width=0.8, bar_spacing=0.2, angling=45, label_size=10):
     """
     Visualizes the count of each unique value in the specified column with a bar chart.
     Parameters:
@@ -326,8 +326,10 @@ def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width, bar_spacing, a
     - xlabel (str): Label for the x-axis of the chart.
     - ylabel (str): Label for the y-axis of the chart.
     - title (str): Title for the bar chart.
-    - bar_width (float): Width of the bars in the chart (default is 0.8).
-    - bar_spacing (float): Space between bars in the chart (default is 0.2).
+    - bar_width (float, optional): Width of the bars in the chart (default is 0.8).
+    - bar_spacing (float, optional): Space between bars in the chart (default is 0.2).
+    - angling (int, optional): Angle for the x-axis labels (default is 45).
+    - label_size (int, optional): Font size for the labels on the x-axis (default is 10).
     Returns:
     - None
     ---------------------------------------------------------------------
@@ -338,8 +340,10 @@ def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width, bar_spacing, a
     - xlabel (str): Nhãn cho trục x của biểu đồ.
     - ylabel (str): Nhãn cho trục y của biểu đồ.
     - title (str): Tiêu đề cho biểu đồ cột.
-    - bar_width (float): Độ rộng của các cột trong biểu đồ (mặc định là 0.8).
-    - bar_spacing (float): Khoảng cách giữa các cột trong biểu đồ (mặc định là 0.2).
+    - bar_width (float, optional): Độ rộng của các cột trong biểu đồ (mặc định là 0.8).
+    - bar_spacing (float, optional): Khoảng cách giữa các cột trong biểu đồ (mặc định là 0.2).
+    - angling (int, optional): Góc nghiêng của nhãn trên trục x (mặc định là 45).
+    - label_size (int, optional): Kích thước font chữ cho nhãn trên trục x (mặc định là 10).
     Trả về:
     - None
     """
@@ -347,23 +351,21 @@ def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width, bar_spacing, a
         value_counts = dataframe[column_name].value_counts()
         indices = range(len(value_counts))
         adjusted_indices = [i * (bar_width + bar_spacing) for i in indices]
-        labels_angle = angling
         # Visualize the counts with a bar chart
         plt.bar(adjusted_indices, value_counts.values, color="orange", width=bar_width)
-        plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=labels_angle)
+        plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=angling, fontsize=label_size)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.title(title)
         plt.tight_layout()
         plt.show()
-        
     else:
         print(f"Column '{column_name}' not found in the dataframe.")
 
     # Example usage
     # df = pd.DataFrame(data)
-    # column_name = ["Q7_1", "Q7_2"]
-    # graph1 = visualize_variable_counts(df, column_name)
+    # column_name = "Q7_1"
+    # graph1 = vvc(df, column_name, "X-axis Label", "Y-axis Label", "Chart Title")
 
 
 # visualize_heatmap
