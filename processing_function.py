@@ -137,6 +137,14 @@ def fhelp(function_name=None):
             "    df = rename_col(df, columns, 'Q7_')\n"
             "    print(df)"
         ),
+        "replace_na": (
+            "replace_na(dataframe, column_name, value):\n"
+            "  - Thay thế các giá trị NA trong cột được chỉ định bằng giá trị được cung cấp.\n"
+            "  Ví dụ:\n"
+            "    df = pd.DataFrame(data)\n"
+            "    df = replace_na(df, 'Q5', 'Unknown')\n"
+            "    print(df)"
+        ),
     }
 
     if function_name is None:
