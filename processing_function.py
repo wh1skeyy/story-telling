@@ -350,7 +350,7 @@ def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width, bar_spacing, a
         labels_angle = angling
         # Visualize the counts with a bar chart
         plt.bar(adjusted_indices, value_counts.values, color="orange", width=bar_width)
-        plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=angling)
+        plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=labels_angle)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.title(title)
