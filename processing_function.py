@@ -1,10 +1,21 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Import function bằng lệnh "from processing_function import *", 
+# Import function bằng lệnh "from processing_function import *",
 # Nhập 'help()' hoặc 'help("tên func")' để xem hướng dẫn sử dụng.
 
-__all__ = ["fhelp", "col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col"]
+__all__ = [
+    "fhelp",
+    "col_format",
+    "add_sum_col",
+    "cavo",
+    "gcbp",
+    "vvc",
+    "heatmapping",
+    "favc",
+    "rename_col",
+    "replace_na",
+]
 """
 ĐÂY CHỈ LÀ PHẦN LIỆT KÊ CÁC FUNCTIONS, KHÁ LÀ TRỪU TƯỢNG NÊN CÓ THỂ BỎ QUA. HÃY ĐỌC CÁC PHẦN KÈM VÍ DỤ TỪ DÒNG 50 ĐỂ HIỂU RÕ HƠN
 Tên đầy đủ của các hàm và cách sử dụng:
@@ -53,9 +64,9 @@ def fhelp(function_name=None):
     """
     Hiển thị hướng dẫn sử dụng cho một hàm cụ thể hoặc tất cả các hàm trong module.
     Cách sử dụng:
-      fhelp() 
+      fhelp()
          - Hiển thị hướng dẫn cho tất cả các hàm.
-      fhelp("col_format") 
+      fhelp("col_format")
          - Hiển thị hướng dẫn cho hàm 'col_format'.
     """
     usage = {
@@ -125,9 +136,9 @@ def fhelp(function_name=None):
             "    columns = ['Q7_Part1', 'Q7_Part2']\n"
             "    df = rename_col(df, columns, 'Q7_')\n"
             "    print(df)"
-        )
+        ),
     }
-    
+
     if function_name is None:
         print("Hướng dẫn sử dụng cho module processing_function:")
         for func, desc in usage.items():
@@ -138,6 +149,8 @@ def fhelp(function_name=None):
             print(info)
         else:
             print(f"Không có thông tin cho hàm '{function_name}'.")
+
+
 # process_selected_columns_to_int
 def col_format(dataframe, column_names):
     """
@@ -164,7 +177,9 @@ def col_format(dataframe, column_names):
     for column_name in column_names:
         if column_name in dataframe.columns:
             dataframe[column_name] = (
-                dataframe[column_name].apply(lambda x: 1 if pd.notna(x) else 0).astype(int)
+                dataframe[column_name]
+                .apply(lambda x: 1 if pd.notna(x) else 0)
+                .astype(int)
             )
     return dataframe
     # Example usage of the functions
@@ -175,6 +190,7 @@ def col_format(dataframe, column_names):
     data = col_format(df, column_names)
     # Print the updated dataframe
     print(data)
+
 
 # add_columns_sum
 def add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):
@@ -218,6 +234,7 @@ def add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):
     )  # Cột được thêm vào ở vị trí thứ 2
     data.head()
 
+
 ##count_and_visualize_ones
 def cavo(dataframe, column_names):
     """
@@ -243,7 +260,7 @@ def cavo(dataframe, column_names):
     plt.xlabel("Columns")
     plt.ylabel("Users Count")
     plt.title("Quantity")
-    plt.xticks(rotation='vertical')
+    plt.xticks(rotation="vertical")
     plt.tight_layout()
     plt.show()
     return counts
@@ -252,6 +269,7 @@ def cavo(dataframe, column_names):
     # Example 3: Count and visualize the number of '1's in specified columns
     # column_names = ["A", "B", "C"]
     # graph1 = cavo(df, column_names)
+
 
 # get_columns_by_prefix
 def gcbp(dataframe, prefix):
@@ -290,7 +308,6 @@ def gcbp(dataframe, prefix):
     # print(selected_cols)
 
 
-
 # visualize_variable_counts
 def vvc(dataframe, column_name, xlabel, ylabel, title):
     """
@@ -327,7 +344,6 @@ def vvc(dataframe, column_name, xlabel, ylabel, title):
     # df = pd.DataFrame(data)
     # column_name = ["Q7_1", "Q7_2"]
     # graph1 = visualize_variable_counts(df, column_name)
-
 
 
 # visualize_heatmap
@@ -374,106 +390,129 @@ def heatmapping(dataframe, column_x, column_y, title):
     # heatmap1 = visualize_heatmap(df, column_x, column_y)
 
 
-
 # filter_and_visualize_choices
 def favc(
-        dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title
-    ):
-        """
-        Filters the dataframe based on a condition and visualizes the choices for a specific question.
-        Parameters:
-        - dataframe (pd.DataFrame): The dataframe to process.
-        - filter_column (str): The column to apply the filter on.
-        - filter_value (any): The value to filter the column by.
-        - question_column (str): The column representing the question to visualize choices for.
-        - xlabel (str): Label for the x-axis of the chart.
-        - ylabel (str): Label for the y-axis of the chart.
-        - title (str): Title for the chart.
-        Returns:
-        - None
-        ---------------------------------------------------------------------
-        Lọc dataframe dựa trên điều kiện và hiển thị các lựa chọn cho một câu hỏi cụ thể.
-        Tham số:
-        - dataframe (pd.DataFrame): DataFrame cần xử lý.
-        - filter_column (str): Tên cột để áp dụng bộ lọc.
-        - filter_value (any): Giá trị để lọc cột.
-        - question_column (str): Tên cột đại diện cho câu hỏi cần hiển thị lựa chọn.
-        - xlabel (str): Nhãn cho trục x của biểu đồ.
-        - ylabel (str): Nhãn cho trục y của biểu đồ.
-        - title (str): Tiêu đề cho biểu đồ.
-        Trả về:
-        - None
-        """
-        if filter_column in dataframe.columns and question_column in dataframe.columns:
-            filtered_df = dataframe[dataframe[filter_column] == filter_value]
-            if not filtered_df.empty:
-                value_counts = filtered_df[question_column].value_counts()
-                # Visualize the counts with a bar chart
-                plt.bar(
-                    value_counts.index.astype(str), value_counts.values, color="green"
-                )
-                plt.xlabel(xlabel)
-                plt.ylabel(ylabel)
-                plt.title(title)
-                plt.xticks(rotation=45)
-                plt.tight_layout()
-                plt.show()
-            else:
-                print(f"No data found for {filter_column} = {filter_value}.")
+    dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title
+):
+    """
+    Filters the dataframe based on a condition and visualizes the choices for a specific question.
+    Parameters:
+    - dataframe (pd.DataFrame): The dataframe to process.
+    - filter_column (str): The column to apply the filter on.
+    - filter_value (any): The value to filter the column by.
+    - question_column (str): The column representing the question to visualize choices for.
+    - xlabel (str): Label for the x-axis of the chart.
+    - ylabel (str): Label for the y-axis of the chart.
+    - title (str): Title for the chart.
+    Returns:
+    - None
+    ---------------------------------------------------------------------
+    Lọc dataframe dựa trên điều kiện và hiển thị các lựa chọn cho một câu hỏi cụ thể.
+    Tham số:
+    - dataframe (pd.DataFrame): DataFrame cần xử lý.
+    - filter_column (str): Tên cột để áp dụng bộ lọc.
+    - filter_value (any): Giá trị để lọc cột.
+    - question_column (str): Tên cột đại diện cho câu hỏi cần hiển thị lựa chọn.
+    - xlabel (str): Nhãn cho trục x của biểu đồ.
+    - ylabel (str): Nhãn cho trục y của biểu đồ.
+    - title (str): Tiêu đề cho biểu đồ.
+    Trả về:
+    - None
+    """
+    if filter_column in dataframe.columns and question_column in dataframe.columns:
+        filtered_df = dataframe[dataframe[filter_column] == filter_value]
+        if not filtered_df.empty:
+            value_counts = filtered_df[question_column].value_counts()
+            # Visualize the counts with a bar chart
+            plt.bar(value_counts.index.astype(str), value_counts.values, color="green")
+            plt.xlabel(xlabel)
+            plt.ylabel(ylabel)
+            plt.title(title)
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            plt.show()
         else:
-            print(
-                f"One or both columns '{filter_column}' and '{question_column}' not found in the dataframe."
-            )
-    # Example usage
-    # df = pd.DataFrame(data)
-    # filter_column = "Q7_1"
-    # filter_value = "1"
-    # question_column = "Q5"
-    # xlabel = "Quantity"
-    # ylabel = "Title"
-    # title = "Roles that use Python programming language"
-    # graph1 = filter_and_visualize_choices(df, filter_column, filter_value, question_column, xlabel, ylabel, title)
+            print(f"No data found for {filter_column} = {filter_value}.")
+    else:
+        print(
+            f"One or both columns '{filter_column}' and '{question_column}' not found in the dataframe."
+        )
 
+
+# Example usage
+# df = pd.DataFrame(data)
+# filter_column = "Q7_1"
+# filter_value = "1"
+# question_column = "Q5"
+# xlabel = "Quantity"
+# ylabel = "Title"
+# title = "Roles that use Python programming language"
+# graph1 = filter_and_visualize_choices(df, filter_column, filter_value, question_column, xlabel, ylabel, title)
 
 
 # rename_columns_by_first_unique
 def rename_col(dataframe, columns, prefix):
-        """
-        Renames the specified columns using the first non-null unique value found in each column.
-        If no valid unique value is found for a column, the column name remains unchanged.
-        Parameters:
-        - dataframe (pd.DataFrame): The dataframe to process.
-        - columns (list): List of column names to rename.
-        - prefix (str): Prefix to add to the new column names.
-        Returns:
-        - pd.DataFrame: DataFrame with columns renamed accordingly.
-        ------------------------------------------------------------------
-        Đổi tên các cột được chỉ định bằng cách sử dụng giá trị duy nhất không null đầu tiên được tìm thấy trong mỗi cột.
-        Nếu không tìm thấy giá trị duy nhất hợp lệ cho một cột, tên cột sẽ không được thay đổi.
-        Tham số:
-        - dataframe (pd.DataFrame): DataFrame cần xử lý.
-        - columns (list): Danh sách các tên cột cần đổi tên.
-        - prefix (str): Tiền tố để thêm vào các tên cột mới.
-        Trả về:
-        - pd.DataFrame: DataFrame với các tên cột đã được đổi tên tương ứng.
-        """
-        rename_mapping = {}
-        for col in columns:
-            if col in dataframe.columns:
-                # Get the first non-null unique value
-                unique_values = dataframe[col].dropna().unique()
-                if unique_values.size > 0:
-                    new_col = unique_values[0]
-                    # Only rename if the new name is not already a column to avoid conflicts
-                    if new_col not in dataframe.columns:
-                        rename_mapping[col] = prefix + new_col
-        return dataframe.rename(columns=rename_mapping)
-    # Example usage
-    # df = pd.DataFrame(data)
-    # columns = ["Q7_Part1", "Q7_Part2"]
-    # prefix = "Q7_"
-    # renamed_df = rename_col(df, columns, prefix)
-    # output -> "Q7_Python", "Q7_R"
-    
+    """
+    Renames the specified columns using the first non-null unique value found in each column.
+    If no valid unique value is found for a column, the column name remains unchanged.
+    Parameters:
+    - dataframe (pd.DataFrame): The dataframe to process.
+    - columns (list): List of column names to rename.
+    - prefix (str): Prefix to add to the new column names.
+    Returns:
+    - pd.DataFrame: DataFrame with columns renamed accordingly.
+    ------------------------------------------------------------------
+    Đổi tên các cột được chỉ định bằng cách sử dụng giá trị duy nhất không null đầu tiên được tìm thấy trong mỗi cột.
+    Nếu không tìm thấy giá trị duy nhất hợp lệ cho một cột, tên cột sẽ không được thay đổi.
+    Tham số:
+    - dataframe (pd.DataFrame): DataFrame cần xử lý.
+    - columns (list): Danh sách các tên cột cần đổi tên.
+    - prefix (str): Tiền tố để thêm vào các tên cột mới.
+    Trả về:
+    - pd.DataFrame: DataFrame với các tên cột đã được đổi tên tương ứng.
+    """
+    rename_mapping = {}
+    for col in columns:
+        if col in dataframe.columns:
+            # Get the first non-null unique value
+            unique_values = dataframe[col].dropna().unique()
+            if unique_values.size > 0:
+                new_col = unique_values[0]
+                # Only rename if the new name is not already a column to avoid conflicts
+                if new_col not in dataframe.columns:
+                    rename_mapping[col] = prefix + new_col
+    return dataframe.rename(columns=rename_mapping)
 
 
+# Example usage
+# df = pd.DataFrame(data)
+# columns = ["Q7_Part1", "Q7_Part2"]
+# prefix = "Q7_"
+# renamed_df = rename_col(df, columns, prefix)
+# output -> "Q7_Python", "Q7_R"
+
+
+# replace_na
+def replace_na(dataframe, column_name, value):
+    """
+    Replaces NA values in the specified column with the given value.
+    Parameters:
+    - dataframe (pd.DataFrame): The dataframe to process.
+    - column_name (str): The column name where NA values will be replaced.
+    - value (str or int): The value to replace NA values with.
+    Returns:
+    - pd.DataFrame: Updated dataframe with NA values replaced.
+    ---------------------------------------------------------------------
+    Thay thế các giá trị NA trong cột được chỉ định bằng giá trị được cung cấp.
+    Tham số:
+    - dataframe (pd.DataFrame): DataFrame cần xử lý.
+    - column_name (str): Tên cột mà các giá trị NA sẽ được thay thế.
+    - value (str hoặc int): Giá trị để thay thế các giá trị NA.
+    Trả về:
+    - pd.DataFrame: DataFrame đã được cập nhật với các giá trị NA được thay thế.
+    """
+    if column_name in dataframe.columns:
+        dataframe[column_name] = dataframe[column_name].fillna(value)
+    else:
+        print(f"Column '{column_name}' not found in the dataframe.")
+    return dataframe
