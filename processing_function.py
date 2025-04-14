@@ -243,7 +243,7 @@ def add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):
 
 
 ##count_and_visualize_ones
-def cavo(dataframe, column_names, horizontal=False, xlabel="INSERT NAME", ylabel="INSERT NAME"):
+def cavo(dataframe, column_names, horizontal=False, xlabel="INSERT NAME", ylabel="INSERT NAME", title= "INSERT"):
     """
     Counts the number of '1' in the specified columns and visualizes the counts with a bar chart.
     Parameters:
@@ -274,12 +274,12 @@ def cavo(dataframe, column_names, horizontal=False, xlabel="INSERT NAME", ylabel
         plt.barh(list(counts.keys()), list(counts.values()), color="#40b5e8")
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
-        plt.title("Quantity")
+        plt.title(title)
     else:
         plt.bar(counts.keys(), counts.values(), color="#40b5e8")
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
-        plt.title("Quantity")
+        plt.title(title)
         plt.xticks(rotation="vertical")
     plt.subplots_adjust()
     plt.show()
