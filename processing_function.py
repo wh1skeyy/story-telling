@@ -244,12 +244,15 @@ def add_sum_col(dataframe, columns_to_sum, new_column_name, position=None):
 
 
 ##count_and_visualize_ones
-def cavo(dataframe, column_names):
+def cavo(dataframe, column_names, horizontal=False, xlabel="INSERT NAME", ylabel="INSERT NAME"):
     """
     Counts the number of '1' in the specified columns and visualizes the counts with a bar chart.
     Parameters:
     - dataframe (pd.DataFrame): The dataframe to process.
     - column_names (list): List of column names to count '1's.
+    - horizontal (bool, optional): If True, draw the bars sideways (horizontal bar chart).
+    - xlabel (str, optional): Label for the x-axis of the chart (default is 'INSERT NAME').
+    - ylabel (str, optional): Label for the y-axis of the chart (default is 'INSERT NAME').
     Returns:
     - dict: A dictionary with column names as keys and counts of '1' as values.
     -------------------------------------------------------------------------------
@@ -257,6 +260,9 @@ def cavo(dataframe, column_names):
     Tham số:
     - dataframe (pd.DataFrame): DataFrame cần xử lý.
     - column_names (list): Danh sách tên các cột cần đếm số lượng '1'.
+    - horizontal (bool, optional): Nếu True, vẽ biểu đồ cột ngang.
+    - xlabel (str, optional): Nhãn cho trục x của biểu đồ (mặc định là 'INSERT NAME').
+    - ylabel (str, optional): Nhãn cho trục y của biểu đồ (mặc định là 'INSERT NAME').
     Trả về:
     - dict: Một dictionary với tên cột là key và số lượng '1' là value.
     """
@@ -264,19 +270,25 @@ def cavo(dataframe, column_names):
         col: dataframe[col].sum() for col in column_names if col in dataframe.columns
     }
     # Visualize the counts with a bar chart
-    plt.bar(counts.keys(), counts.values(), color="skyblue")
-    plt.xlabel("Columns")
-    plt.ylabel("Users Count")
-    plt.title("Quantity")
-    plt.xticks(rotation="vertical")
-    plt.tight_layout()
+    if horizontal:
+        plt.barh(list(counts.keys()), list(counts.values()), color="skyblue")
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title("Quantity")
+    else:
+        plt.bar(counts.keys(), counts.values(), color="skyblue")
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title("Quantity")
+        plt.xticks(rotation="vertical")
+    plt.subplots_adjust()
     plt.show()
     return counts
     # Example usage of the functions
     # df = pd.DataFrame(data)
     # Example 3: Count and visualize the number of '1's in specified columns
     # column_names = ["A", "B", "C"]
-    # graph1 = cavo(df, column_names)
+    # graph1 = cavo(df, column_names, horizontal=True, xlabel="Custom X", ylabel="Custom Y")
 
 
 # get_columns_by_prefix
