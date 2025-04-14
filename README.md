@@ -3,7 +3,7 @@
 We have chosen a Kaggle's survey on Machine Learning and Data Science in 2020. There was no specifically required results, as the survey was made with the purpose of discoverig different data stories about a subset of the data science community represented in it.
 
 For our story, we have decided to exploit the data to get insights on __'which skills and programming languages machine learning beginners should learn to earn a better chance when entering the job market'__.
-
+ 
 ### Introduction to the dataset
 
 [Data Source](https://www.kaggle.com/c/kaggle-survey-2020/overview)
