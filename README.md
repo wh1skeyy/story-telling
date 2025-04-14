@@ -42,10 +42,13 @@ print(na_counts)
 * Import functions
 ```
 from processing_function import *
+from file_seperater import *
 ```
 **Explanation**: 
 
 In 'processing_function.py' are all the functions we need to process the raw data (and for EDA later on). To summarize, here are the functions we are going to use: "fhelp", "col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col".
+
+In 'file_seperater.py' is the function used to filter a separated dataframe for later use.
 
 _For details on how to use these functions, please open these files on Github._
 
