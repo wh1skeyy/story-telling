@@ -28,7 +28,7 @@ import pandas as pd
 data = 'kaggle_survey_2020_responses.csv'
 data = pd.read_csv(data)
 data.head()
-# Remove row 0
+# Remove the question row 
 data = data.iloc[1:]
 ```
 * Check for missing values
