@@ -269,13 +269,14 @@ def cavo(dataframe, column_names, horizontal=False, xlabel="INSERT NAME", ylabel
         col: dataframe[col].sum() for col in column_names if col in dataframe.columns
     }
     # Visualize the counts with a bar chart
+    plt.figure
     if horizontal:
-        plt.barh(list(counts.keys()), list(counts.values()), color="aquamarine")
+        plt.barh(list(counts.keys()), list(counts.values()), color="lightskyblue")
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.title("Quantity")
     else:
-        plt.bar(counts.keys(), counts.values(), color="aquamarine")
+        plt.bar(counts.keys(), counts.values(), color="lightskyblue")
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.title("Quantity")
@@ -363,7 +364,7 @@ def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width=0.8, bar_spacin
         indices = range(len(value_counts))
         adjusted_indices = [i * (bar_width + bar_spacing) for i in indices]
         # Visualize the counts with a bar chart
-        plt.bar(adjusted_indices, value_counts.values, color="aquamarine", width=bar_width)
+        plt.bar(adjusted_indices, value_counts.values, color="lightskyblue", width=bar_width)
         plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=angling, fontsize=label_size)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
@@ -457,7 +458,7 @@ def favc(
         if not filtered_df.empty:
             value_counts = filtered_df[question_column].value_counts()
             # Visualize the counts with a bar chart
-            plt.bar(value_counts.index.astype(str), value_counts.values, color="aquamarine")
+            plt.bar(value_counts.index.astype(str), value_counts.values, color="lightskyblue")
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
             plt.title(title)
