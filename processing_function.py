@@ -270,12 +270,12 @@ def cavo(dataframe, column_names, horizontal=False, xlabel="INSERT NAME", ylabel
     }
     # Visualize the counts with a bar chart
     if horizontal:
-        plt.barh(list(counts.keys()), list(counts.values()), color="skyblue")
+        plt.barh(list(counts.keys()), list(counts.values()), color="aquamarine")
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.title("Quantity")
     else:
-        plt.bar(counts.keys(), counts.values(), color="skyblue")
+        plt.bar(counts.keys(), counts.values(), color="aquamarine")
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.title("Quantity")
@@ -363,7 +363,7 @@ def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width=0.8, bar_spacin
         indices = range(len(value_counts))
         adjusted_indices = [i * (bar_width + bar_spacing) for i in indices]
         # Visualize the counts with a bar chart
-        plt.bar(adjusted_indices, value_counts.values, color="orange", width=bar_width)
+        plt.bar(adjusted_indices, value_counts.values, color="aquamarine", width=bar_width)
         plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=angling, fontsize=label_size)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
@@ -457,7 +457,7 @@ def favc(
         if not filtered_df.empty:
             value_counts = filtered_df[question_column].value_counts()
             # Visualize the counts with a bar chart
-            plt.bar(value_counts.index.astype(str), value_counts.values, color="green")
+            plt.bar(value_counts.index.astype(str), value_counts.values, color="aquamarine")
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
             plt.title(title)
@@ -580,7 +580,7 @@ def pie_draw(dataframe, column_name, title):
             labels=value_counts.index.astype(str),
             autopct="%1.1f%%",
             startangle=90,
-            colors=plt.cm.Paired.colors,
+            colors=plt.cm.Greens(np.linspace(0.4, 0.9, len(value_counts))),
         )
         plt.title(title)
         plt.tight_layout()
