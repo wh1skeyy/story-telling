@@ -17,7 +17,6 @@ __all__ = [
     "replace_na",
 ]
 """
-ĐÂY CHỈ LÀ PHẦN LIỆT KÊ CÁC FUNCTIONS, KHÁ LÀ TRỪU TƯỢNG NÊN CÓ THỂ BỎ QUA. HÃY ĐỌC CÁC PHẦN KÈM VÍ DỤ TỪ DÒNG 50 ĐỂ HIỂU RÕ HƠN
 Tên đầy đủ của các hàm và cách sử dụng:
 1. process_selected_columns_to_int (col_format) - Nên dùng sau 'rename_col'
 Command: col_format(dataframe, column_names)
