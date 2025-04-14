@@ -42,6 +42,7 @@ print(na_counts)
 ```
 from processing_function import *
 from file_seperater import *
+df = pd.DataFrame(data)
 ```
 **Explanation**: 
 
@@ -103,10 +104,18 @@ Among these, there are cases in which questions are related to another one, so w
 data.loc[data['Q29_ATotal'] <= 1, 'Q30'] = 'Not Questioned'
 data.loc[data['Q31_ATotal'] <= 1, 'Q32'] = 'Not Questioned'
 ```
+* Convert into a csv file
+```
+data.to_csv('cleaned-data.csv', index=False)
+```
+
 * Filter for valuable data related to machine learning
 
 Our story specifically target the machine learning engineer sector in the job market, so we tend to value the opinions given by people with that position. And so, we extracted all the rows with answers from machine learning engineers into a new dataframe. This would be the dataframe we mainly use in EDA.
-
+```
+# This is a function imported from 'file_seperater.py'
+separate_roles('cleaned-data.csv')
+```
 
 
 ### EDA
