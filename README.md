@@ -152,7 +152,6 @@ vvc(df, 'Q3', 'Country', 'Counts', 'ML engineers country-wise distributrion', ba
 
 * _**How high of education do ML engineers usually have?**_
 ```
-df = pd.DataFrame(data)
 title = "Education level in relation to the working field"
 df['Q4'] = df['Q4'].replace({
     'Doctoral degree': 'PhD',
