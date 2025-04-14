@@ -1,5 +1,4 @@
 # Skill Seeds & Career Roots: Early Careers and Skills Development
-**A Github will be used to perform analysis**
 ## Project overview
 We have chosen a Kaggle's survey on Machine Learning and Data Science in 2020. There was no specifically required results, as the survey was made with the purpose of discoverig different data stories about a subset of the data science community represented in it.
 
