@@ -98,16 +98,7 @@ favc(dataframe, filter_column, filter_value, question_column, xlabel, ylabel, ti
    - If no valid unique value is found for a column, the column name remains unchanged.
 
 In 'file_seperater.py' is the function used to filter a separated dataframe for later use.
-```
-__all__ = [
-    "separate_roles",]
 
-def separate_roles(input_file):
-    data = pd.read_csv(input_file)
-
-    ml_engineer_df = data[data['Q5'] == 'Machine Learning Engineer']
-    ml_engineer_df.to_csv('machine_learning_engineers.csv', index=False)
-```
 _Additional explanation will be added along the way, but for thorough details on these functions, please open the mentioned files on Github._
 
 * Ways to handle missing data
@@ -174,7 +165,17 @@ Our story specifically target the machine learning engineer sector in the job ma
 # This is a function imported from 'file_seperater.py'
 separate_roles('cleaned-data.csv')
 ```
+_(About 'file_seperater' function)_
+```
+__all__ = [
+    "separate_roles",]
 
+def separate_roles(input_file):
+    data = pd.read_csv(input_file)
+
+    ml_engineer_df = data[data['Q5'] == 'Machine Learning Engineer']
+    ml_engineer_df.to_csv('machine_learning_engineers.csv', index=False)
+```
 
 ### EDA
 * ABOUT THE FUNCTIONS MAINLY USED FOR EDA
