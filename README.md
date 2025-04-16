@@ -28,7 +28,7 @@ import pandas as pd
 data = 'kaggle_survey_2020_responses.csv'
 data = pd.read_csv(data)
 data.head()
-# Remove row 0
+# Remove row 0 (question row)
 data = data.iloc[1:]
 ```
 * Check for missing values
@@ -50,6 +50,7 @@ In 'processing_function.py' are all the **self-coded** functions we need to proc
 
 1. process_selected_columns_to_int (col_format)
 ```
+#Command
 col_format(dataframe, column_names)
 ```
 - Processes the specified columns in the dataframe:
@@ -58,6 +59,7 @@ col_format(dataframe, column_names)
     + Converts the column type to int.
 2. add_columns_sum (add_sum_col)
 ```
+#Command
 add_sum_col(dataframe, columns_to_sum, new_column_name, position=None) 
 #Thay None bằng vị trí mong muốn
 ```
@@ -65,33 +67,47 @@ add_sum_col(dataframe, columns_to_sum, new_column_name, position=None)
 - Optionally inserts the new column at the specified position.
 3. count_and_visualize_ones (cavo)
 ```
+#Command
 cavo(dataframe, column_names)
 ```
 - Counts the number of '1' in the specified columns and visualizes the counts with a bar chart.
 4. get_columns_by_prefix (gcbp)
 ```
+#Command
 gcbp(dataframe, prefix)
 ```
 - Retrieves all column names in the dataframe that start with the specified prefix.
 5. visualize_variable_counts (vvc)
 ```
+#Command
 vvc(dataframe, column_name, xlabel, ylabel, title)
 ```
  - Visualizes the count of each unique value in the specified column with a bar chart.
 6. filter_and_visualize_choices (favc)
 ```
+#Command
 favc(dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title)
 ```
  - Filters the dataframe based on a condition and visualizes the choices for a specific question.
 7. rename_columns_by_first_unique (rename_col)
 ```
+#Command
  rename_col(dataframe, columns, prefix)
 ```
    - Renames the specified columns using the first non-null unique value found in each column.
    - If no valid unique value is found for a column, the column name remains unchanged.
 
 In 'file_seperater.py' is the function used to filter a separated dataframe for later use.
+```
+__all__ = [
+    "separate_roles",]
 
+def separate_roles(input_file):
+    data = pd.read_csv(input_file)
+
+    ml_engineer_df = data[data['Q5'] == 'Machine Learning Engineer']
+    ml_engineer_df.to_csv('machine_learning_engineers.csv', index=False)
+```
 _Additional explanation will be added along the way, but for thorough details on these functions, please open the mentioned files on Github._
 
 * Ways to handle missing data
@@ -161,6 +177,51 @@ separate_roles('cleaned-data.csv')
 
 
 ### EDA
+* ABOUT THE FUNCTIONS MAINLY USED FOR EDA
+
+_The 2 main functions that will be used are 'cavo' and 'vcc' (As mentioned before, they are imported from 'processing_function.py') The former one is used for multiple-selection questions and the latter is for only one answer question._
+```
+# cavo (count_and_visualize_ones)
+def cavo(dataframe, column_names, horizontal=False, xlabel="INSERT NAME", ylabel="INSERT NAME", title= "INSERT"):
+    counts = {
+        col: dataframe[col].sum() for col in column_names if col in dataframe.columns
+    }
+    # Visualize the counts with a bar chart
+    plt.figure
+    if horizontal:
+        plt.barh(list(counts.keys()), list(counts.values()), color="#40b5e8")
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title(title)
+    else:
+        plt.bar(counts.keys(), counts.values(), color="#40b5e8")
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title(title)
+        plt.xticks(rotation="vertical")
+    plt.subplots_adjust()
+    plt.show()
+    return counts
+
+
+# vcc (visualize_variable_counts)
+def vvc(dataframe, column_name, xlabel, ylabel, title, bar_width=0.8, bar_spacing=0.2, angling=45, label_size=10):
+    if column_name in dataframe.columns:
+        value_counts = dataframe[column_name].value_counts()
+        indices = range(len(value_counts))
+        adjusted_indices = [i * (bar_width + bar_spacing) for i in indices]
+        # Visualize the counts with a bar chart
+        plt.bar(adjusted_indices, value_counts.values, color="#40b5e8", width=bar_width)
+        plt.xticks(adjusted_indices, value_counts.index.astype(str), rotation=angling, fontsize=label_size)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title(title)
+        plt.tight_layout()
+        plt.show()
+    else:
+        print(f"Column '{column_name}' not found in the dataframe.")
+```
+
 * Import libraries and separated dataframe
 ```
 import pandas as pd
@@ -171,6 +232,7 @@ data = pd.read_csv(data)
 data.head()
 df = pd.DataFrame(data)
 ```
+
 * _**How does the job market for ML engineer look like around the globe?**_
 ```
 df['Q3'] = df['Q3'].replace({
