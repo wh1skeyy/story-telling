@@ -46,17 +46,17 @@ df = pd.DataFrame(data)
 ```
 **Explanation**: 
 
-In 'processing_function.py' are all the functions we need to process the raw data (and for EDA later on). To summarize, here are the functions we are going to use: "fhelp", "col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col".
+In 'processing_function.py' are all the **self-coded** functions we need to process the raw data (and for EDA later on). To summarize, here are the functions we are going to use: "fhelp", "col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col".
 
 In 'file_seperater.py' is the function used to filter a separated dataframe for later use.
 
-_For details on how to use these functions, please open these files on Github._
+_More explanation will be added along the way, but for thorough details on how to use these functions, please open these files on Github._
 
 * Ways to handle missing data
 
-Generally, there were columns with only one answer and columns with multiple answers selected.
+Generally, there were quesions with only one answer and questions with multiple answers selected.
 
-__For columns of multiple-selections questions, we transferred all the available values to 1 and the rest is 0.__
+__For data columns of multiple-selections questions, we transferred all the unique values to 1 and NAs (the rest) to 0.__
 ```
 questions = [
     "Q7", "Q9", "Q10", "Q12", "Q14", "Q16", "Q17", "Q18", "Q19", "Q23", 
