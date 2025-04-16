@@ -165,7 +165,7 @@ Our story specifically target the machine learning engineer sector in the job ma
 # This is a function imported from 'file_seperater.py'
 separate_roles('cleaned-data.csv')
 ```
-_(About 'file_seperater' function)_
+_(About 'file_seperater')_
 ```
 __all__ = [
     "separate_roles",]
