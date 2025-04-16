@@ -28,7 +28,7 @@ import pandas as pd
 data = 'kaggle_survey_2020_responses.csv'
 data = pd.read_csv(data)
 data.head()
-# Remove the question row 
+# Remove row 0
 data = data.iloc[1:]
 ```
 * Check for missing values
@@ -127,8 +127,6 @@ import seaborn as sns
 data = 'machine_learning_engineers.csv'
 data = pd.read_csv(data)
 data.head()
-# Remove row 0
-data = data.iloc[1:]
 df = pd.DataFrame(data)
 ```
 * _**How does the job market for ML engineer look like around the globe?**_
@@ -206,7 +204,11 @@ cavo(df, gcbp(df, "Q28_A",), xlabel= "ML product",ylabel= "Number of users", tit
 
 *=> It's fine even if Quan does not use any ML product, but knowing how to use one of the two above might earn him plus points from future employers.*
 
-* _**What are the notable traits of the ML engineer position in the job market?**_
+* _**What are the notable traits of the ML engineer sector in the job market?**_
+```
+vvc(df, "Q6", "Coding Experience Years", "Number of engineers", title = "ML Engineers by Coding Experience Years")
+```
+![g6](https://i.imgur.com/jxCTco9.png)
 ```
 df['Q15'] = df['Q15'].replace({
     'Under 1 year': '<1 year',
@@ -237,11 +239,13 @@ vvc(df, "Q24", "salary amount", "Number of engineers", title = "ML engineers dis
 
 *Insight:*
 
+*The majority of ML engineers have 3 years or more of programming experience in general. However, the number of people with only 1-2 experience years is not small either.*
+
 *Over half of the engineers in the survey has less than 3 years experience of using ML methods. In fact, people with only 1-2 years, or less than 1 year of experience stood first in numbers.*
 
 *The majority of Ml engineers work in small companies and they are scattered among various roles. Their salary of on average is about $1000.*
 
-*=> It is not impossible to become a ML engineer even with little experience using ML methods. But it might be hard to apply into a big company.*
+*=> It is not impossible to become a ML engineer even with little experience using ML methods. But at least 1-2 years of programming experience is much needed to have a good career start. Even so, it might be hard to apply into a big company.*
 
 * _**What are some tools that Ml engineers need in the near future?**_
 ```
