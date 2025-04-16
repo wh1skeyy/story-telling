@@ -46,11 +46,53 @@ df = pd.DataFrame(data)
 ```
 **Explanation**: 
 
-In 'processing_function.py' are all the **self-coded** functions we need to process the raw data (and for EDA later on). To summarize, here are the functions we are going to use: "fhelp", "col_format", "add_sum_col", "cavo", "gcbp", "vvc", "heatmapping", "favc", "rename_col".
+In 'processing_function.py' are all the **self-coded** functions we need to process the raw data (and for EDA later on). To summarize, here are the functions we are going to use: "col_format", "add_sum_col", "cavo", "gcbp", "vvc", "favc", "rename_col".
+
+1. process_selected_columns_to_int (col_format)
+```
+col_format(dataframe, column_names)
+```
+- Processes the specified columns in the dataframe:
+    + Replaces NA values with 0.
+    + Replaces non-NA values with 1.
+    + Converts the column type to int.
+2. add_columns_sum (add_sum_col)
+```
+add_sum_col(dataframe, columns_to_sum, new_column_name, position=None) 
+#Thay None bằng vị trí mong muốn
+```
+- Sums the values of the specified columns for each row and adds the result as a new column.
+- Optionally inserts the new column at the specified position.
+3. count_and_visualize_ones (cavo)
+```
+cavo(dataframe, column_names)
+```
+- Counts the number of '1' in the specified columns and visualizes the counts with a bar chart.
+4. get_columns_by_prefix (gcbp)
+```
+gcbp(dataframe, prefix)
+```
+- Retrieves all column names in the dataframe that start with the specified prefix.
+5. visualize_variable_counts (vvc)
+```
+vvc(dataframe, column_name, xlabel, ylabel, title)
+```
+ - Visualizes the count of each unique value in the specified column with a bar chart.
+6. filter_and_visualize_choices (favc)
+```
+favc(dataframe, filter_column, filter_value, question_column, xlabel, ylabel, title)
+```
+ - Filters the dataframe based on a condition and visualizes the choices for a specific question.
+7. rename_columns_by_first_unique (rename_col)
+```
+ rename_col(dataframe, columns, prefix)
+```
+   - Renames the specified columns using the first non-null unique value found in each column.
+   - If no valid unique value is found for a column, the column name remains unchanged.
 
 In 'file_seperater.py' is the function used to filter a separated dataframe for later use.
 
-_More explanation will be added along the way, but for thorough details on how to use these functions, please open these files on Github._
+_Additional explanation will be added along the way, but for thorough details on these functions, please open the mentioned files on Github._
 
 * Ways to handle missing data
 
