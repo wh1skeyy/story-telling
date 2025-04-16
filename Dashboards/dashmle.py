@@ -4,7 +4,7 @@ from dash import dcc, html
 import pandas as pd
 import plotly.express as px
 from processing_function  import gcbp
-df = pd.read_csv("machine_learning_engineers.csv")  
+df = pd.read_csv("Data_Storage/machine_learning_engineers.csv")  
 
 # Thay đổi giá trị cột cho dễ đọc 
 df['Q3'] = df['Q3'].replace({
